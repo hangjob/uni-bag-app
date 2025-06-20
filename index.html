@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <script>
+        // 立即执行函数，避免全局变量污染
+        (function () {
+            // 检测viewport-fit支持性
+            const coverSupport = typeof CSS !== 'undefined' &&
+                typeof CSS.supports === 'function' &&
+                (CSS.supports('top: env(safe-area-inset-top)') ||
+                    CSS.supports('top: constant(safe-area-inset-top)'));
+
+            // 创建或修改viewport元标签
+            let meta = document.querySelector('meta[name="viewport"]');
+            if (!meta) {
+                meta = document.createElement('meta');
+                meta.name = 'viewport';
+                document.head.appendChild(meta);
+            }
+
+            // 设置content属性
+            const baseContent = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';
+            meta.content = coverSupport ?
+                `${baseContent}, viewport-fit=cover` :
+                baseContent;
+        })();
+    </script>
+    <title></title>
+    <!--preload-links-->
+    <!--app-context-->
+</head>
+<body>
+<div id="app"><!--app-html--></div>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
