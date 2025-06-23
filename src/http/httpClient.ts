@@ -18,7 +18,6 @@ export default class ApiClient {
                     if ((res.statusCode >= 200 && res.statusCode < 300) || res.data.code === 0) {
                         return resolve(res.data as ResData<T>)
                     }
-
                     /* -------- 无感刷新 token ----------- */
                     const store = useUserStore()
                     const {refreshToken} = store.userInfo || {}
@@ -55,7 +54,6 @@ export default class ApiClient {
                         // 不管刷新 token 成功与否，都清空任务队列
                         taskQueue = []
                     }
-
                     /* -------- 剩余情况都默认请求异常 ----------- */
                     uni.showToast({
                         title: res.data.msg || res.data.message || '请求异常',

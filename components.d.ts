@@ -6,8 +6,11 @@
 export {}
 
 declare module 'vue' {
-    export interface GlobalComponents {
-        WdButton: (typeof import('wot-design-uni/components/wd-button/wd-button.vue'))['default']
-        WdSlider: (typeof import('wot-design-uni/components/wd-slider/wd-slider.vue'))['default']
-    }
+  export interface GlobalComponents {
+    WdButton: typeof import('wot-design-uni/components/wd-button/wd-button.vue')['default']
+    WdCell: typeof import('wot-design-uni/components/wd-cell/wd-cell.vue')['default']
+    WdNumberKeyboard: typeof import('wot-design-uni/components/wd-number-keyboard/wd-number-keyboard.vue')['default']
+    WdSignature: typeof import('wot-design-uni/components/wd-signature/wd-signature.vue')['default']
+    WdToast: typeof import('wot-design-uni/components/wd-toast/wd-toast.vue')['default']
+  }
 }

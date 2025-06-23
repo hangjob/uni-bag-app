@@ -1,27 +1,24 @@
-<route type="home" lang="json">
-{
-"style": {
-"navigationBarTitleText": "请求测试页面",
-"navigationBarTextStyle": "black",
-"navigationBarBackgroundColor": "#ffffff",
-"backgroundColor": "#ffffff"
-}
-}
-</route>
-
 <template>
     <div>
         <button @click="getTest">GET 请求</button>
         <button @click="postTest">POST 请求</button>
         <button @click="cancelRequest">取消 请求</button>
         <button @click="awaitToJs">awaitToJs</button>
-        <div class="text-[100px]">sss</div>
+        <wd-button>主要按钮</wd-button>
+        <wd-button type="success">成功按钮</wd-button>
+        <wd-button type="info">信息按钮</wd-button>
+        <wd-button type="warning">警告按钮</wd-button>
+        <wd-button type="error">危险按钮</wd-button>
+        <wd-signature @confirm="confirm" @clear="clear" :export-scale="2" background-color="#ffffff"/>
+        <wd-cell title="默认键盘" is-link @click="showKeyBoard" />
+        <wd-toast />
+        <wd-number-keyboard v-model:visible="visible" @input="onInput" @delete="onDelete"></wd-number-keyboard>
     </div>
 </template>
 
 <script setup lang="ts">
 import {awaitToJsTestApi, getTestApi, postTestApi} from '@/api/testApi'
-
+import { useToast } from 'wot-design-uni'
 // GET 请求
 const getTest = async () => {
     const res = await getTestApi({name: 'uni-lin'})
@@ -57,4 +54,28 @@ const awaitToJs = async () => {
         console.log(err)
     }
 }
+
+const img = ref({})
+
+function confirm(result) {
+    if (result.success) {
+        uni.previewImage({
+            urls: [result.tempFilePath]
+        })
+    }
+}
+
+function clear() {
+    img.value = {}
+}
+
+const { show: showToast } = useToast()
+const visible = ref<boolean>(false)
+
+function showKeyBoard() {
+    visible.value = true
+}
+
+const onInput = (value) => showToast(`${value}`)
+const onDelete = () => showToast('删除')
 </script>

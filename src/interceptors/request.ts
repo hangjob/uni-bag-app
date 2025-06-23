@@ -8,8 +8,8 @@ export type CustomRequestOptions = UniApp.RequestOptions & {
 }
 
 const timeout = 30000 // 请求超时时间
-const baseUrl = import.meta.env.VITE_SERVER_BASEURL as string // 请求基础路径
-
+const baseUrl = import.meta.env.VITE_SERVER_BASEURL as string // 小程序和App请求基础路径
+const prefix = import.meta.env.VITE_SERVER_PREFIX as string //  web请求前缀
 // 拦截器配置
 const httpInterceptor = {
     // 请求前的拦截
@@ -19,7 +19,12 @@ const httpInterceptor = {
             // 非完整路径，补全基础路径
             // 完整路径：http://localhost:8080/api/user/login
             // 非完整路径：api/user/loginApi
+            // #ifdef WEB
+            options.url = prefix + options.url
+            // #endif
+            // #ifdef MP
             options.url = baseUrl + options.url
+            // #endif
         }
         // 2. query 参数处理
         if (options.query) {

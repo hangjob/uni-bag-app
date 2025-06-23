@@ -50,14 +50,15 @@
   "quickapp": {},
   /* 小程序特有相关 */
   "mp-weixin": {
-    "appid": "",
+    "appid": "wxc00b38425a7083be",
     "setting": {
       "urlCheck": false,
       "es6": true,
       "postcss": true,
       "minified": true,
       "uglifyFileName": true,
-      "swc": true
+      "swc": true,
+      "ignoreDevUnusedFiles": false
     },
     "usingComponents": true,
     /* 该配置，上传时会忽略已配置的静态资源文件 */
